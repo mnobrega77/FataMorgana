@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1></h1>
+ <div class="row" id="nom_cat1" mb-4>
+            <div class="col-12 text-center mt-4 mb-5" id="link2">
+                <h4 style="color:#cc0033;">{{ souscategorie.nom}}</h4>
+            </div>
+        </div>
+      
+
+
+        <div class="row">
+                               
+            {% for livre in livres %}
+                
+                    <div class="col-6 col-md-4 mb-4">
+                        <div class="text-center">
+                            <a href="{{ path('livre', {'id': livre.id}) }}"><img class="img-fluid" src="{{ asset('build/images/'~ livre.image) }}" alt="" style="max-height:200px;"></a>
+                        </div>
+
+                        
+                        <div class="text-center ">
+                            <p>{{livre.prix|number_format (2, ",", " ")}} €</p>
+                         </div>
+                        <div class="text-center ">
+                            <a href="{{ path("panier_add", { id: livre.id })}}" class="btn buybutton active" role="button" aria-pressed="true">Acheter</a>
+                        </div>
+                    </div>
+                
+                {% endfor %} 
+            </div>
+                                 
+           
+{% endblock %}

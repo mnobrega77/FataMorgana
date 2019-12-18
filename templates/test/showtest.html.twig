@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="row" id="nom_cat2">
+            <div class="col-12 text-left mt-4 mb-5" id="link2">
+                <h4 style="color: #333399;">Littérature Etrangère</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col_img col-12 col-md-4 text-center">
+                
+                <img class="img-fluid" src="{{ asset('build/images/'~ livre.image) }}" alt="">
+            
+                    <a href="#" class="btn buybutton active" role="button" aria-pressed="true">Acheter</a>
+            </div>
+            
+            <div class="col_prod col-12 col-md-8 text-center">
+                <h4 class="mb2">{{livre.titre}}</h4>
+                <p class="mb2">Nom auteur</p>
+                <h6>Résumé</h6>
+                <hr>
+
+                <p class="text-justify" style="padding-left:30px;">{{livre.resume}}</p>
+                <hr>
+                <h6>Détails:</h6>
+                <p>{{livre.detail}}<br>
+                    
+                </p>
+                <hr>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="col-12 mt-4 mb-4">
+                    <h4 style="color: #333399; text-align: left;">Du même auteur</h4>
+                    <hr>
+                </div>
+        </div>
+        
+
+{% endblock %}

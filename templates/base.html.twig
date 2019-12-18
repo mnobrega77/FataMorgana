@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Damion&display=swap" rel="stylesheet">
+        {% endblock %}
+        
+    </head>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!--<div class="header">
+                    <img src="img/fata-morgana2.png" class="img-fluid">
+                </div>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="menu mb-2">
+                    <!--Navbar-->
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon" id="navbar-toggler-icon" 
+                                </span>
+                        </button>
+
+                        <!-- Collapse button -->
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('home')}}">Accueil</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Catégories
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item cat001" href="{{ path('categorie', {'id': 'LTTFRA'}) }}">Littérature Française</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat002" href="{{ path('categorie', {'id': 'LTTETR'}) }}">Littérature Etrangère</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat003" href="{{ path('categorie', {'id': 'DOCESS'}) }}">Documents et Témoignages</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat004" href="{{ path('categorie', {'id': 'LVRSCI'}) }}">Sciences</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat005" href="{{ path('categorie', {'id': 'LVHIST'}) }}">Histoire</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat006" href="{{ path('categorie', {'id': 'LVARTS'}) }}">Arts</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat007" href="{{ path('categorie', {'id': 'RELSPI'}) }}">Religion et Spiritualité</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item cat007" href="{{ path('categorie', {'id': 'LVRPRA'}) }}">Livres Pratiques</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Mon compte</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('liste')}}">Afficher les livres</a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="titre, auteur..."
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0 mr-2" id="search"
+                                    type="submit">Rechercher</button>
+                            </form>
+                            <div class="shopping-cart">
+
+                                <a href="{{ path("panier_liste") }}" class="button">Mon panier <i class="fa fa-shopping-cart"></i> {{ app.session.get("panier") | reduce((carry, v) => carry + v) }}</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        {% block body %}{% endblock %}
+
+
+        <div class="footer mb-4">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-md-3 col-sm-4 footer_1 d-block">
+                    <div id="block-menu1">
+                        <div class="item1">
+                            <a href="#">Qui sommes-nous?</a>
+                        </div>
+                        <div class="item1">
+                            <a href="#">Mentions légales</a>
+                        </div>
+                        <div class="item1">
+                            <a href="#">Plan du site</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 footer_2 d-block">
+                    <div id="block-menu2">
+                        <div class="item2">
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="item2">
+                            <p class="adresse">Adresse:
+                                Fata Morgana,<br>
+                                11 rue du Montparnasse
+                                75006 Paris<br>
+                                Tél: 01.45.33.60.00
+                            </p>
+                        </div>
+                        <div class="item2 mb-4">
+                            <a class="btn btn-outline-primary" href="#" role="button">Newsletter <i
+                                    class="fa fa-envelope"></i></a>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 footer_3 d-block">
+                    <div id="block-menu3">
+                        <div class="item3">
+                            <h6>Suivez-nous: </h6>
+                        </div>
+
+                        <div class="item3">
+                            <a href="https://www.facebook.com/" class="fb-ic mr-3" role="button"><i
+                                    class="fa fa-lg fa-facebook-f"></i></a>
+                        </div>
+                        <div class="item3">
+                            <a href="https://support.google.com/plus/?hl=fr#topic=9259565" class="gplus-ic mr-3"
+                                role="button"><i class="fa fa-lg fa-google-plus"></i></a>
+                        </div>
+                        <div class="item3">
+                            <a href="https://fr.linkedin.com/" class="li-ic mr-3" role="button"><i
+                                    class="fa fa-lg fa-linkedin"></i></a>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+
+                
+        {% endblock %}
+    </body>
+</html>

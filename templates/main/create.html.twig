@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<div class="col-12 text-center mb-5 mt-5">
+    <h3>Ajouter un livre</h3>
+</div>
+
+{{ include ('main/_form.html.twig', {form: form}) }}
+
+{% endblock %}

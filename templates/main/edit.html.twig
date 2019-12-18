@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<div class="col-12 text-center mt-5 mb-5">
+    <h3>Modifier le livre</h3>
+</div>
+<div class="row">
+  <div class="form-group col-6">
+        <label for="image"></label>
+        <img src ="{{ asset('build/images/'~ livre.image) }}" style="max-height:230px;">  
+    </div>             
+</div>
+
+{{ include ('main/_form.html.twig', {form: form}) }}
+
+
+{% endblock %}

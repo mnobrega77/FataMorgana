@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formFour 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<div class="col-12 text-center mb-5 mt-5">
+    <h3>Ajouter un nouveau fournisseur</h3>
+</div>
+
+{{ form_start(formFour) }}
+
+{{ form_end(formFour) }}
+
+{% endblock %}

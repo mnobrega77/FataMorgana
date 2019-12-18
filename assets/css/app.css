@@ -1,0 +1,340 @@
+@import '~bootstrap';
+@import '~font-awesome';
+
+
+body h1, h2, h3, h4,h5, h6, p, a{
+	font-family: 'Bree Serif', serif;
+} 
+
+#navbar-toggler-icon { 
+    background: url('../images/logo_fm2.png'); background-size: cover; 
+}
+
+.menu{
+	margin-bottom: 10px;
+}
+.navbar-light .navbar-toggler-icon{
+
+	width: 3.5em;
+	height:3.5em;
+}
+
+a#navbarDropdown:hover{
+	color: black;
+}
+
+h6{
+    color:#007bff
+}
+.nav-link {
+	font-family: 'Bree Serif', serif;
+}
+a.cat001:hover {
+	background-color: #cc0033;
+	color: aliceblue;
+}
+a.cat002:hover{
+	background-color: #333399;
+	color: aliceblue;
+}
+
+a.cat003:hover{
+	background-color: #ff9933;
+	color: aliceblue;
+}
+a.cat004:hover{
+	background-color: #4d9900;
+	color: aliceblue;
+}
+
+a.cat005:hover{
+	background-color: #1a53ff;
+    color: aliceblue;
+    
+}
+
+a.cat006:hover{
+	background-color: #ff4000;
+	color: aliceblue;
+}
+a.cat007:hover{
+	background-color: #ac39ac;
+	color: aliceblue;
+}
+a.cat008:hover{
+	background-color:  #b30000;
+	color: aliceblue;
+}
+
+
+.min_height{
+	height: 40px;
+}
+.img_cat{
+	padding-top: 10px;
+}
+
+#link1 > h4{
+	font-size: 22px;
+	color:#cc0033;
+}
+#link2 > h4 {
+	font-size: 22px;
+	color:#333399;
+}
+
+#link3 > h4 {
+	font-size: 22px;
+	color:#ff9933;
+}
+
+#link4 > h4 {
+	font-size: 22px;
+	color:#4d9900;
+}
+
+#link5 > h4 {
+	font-size: 22px;
+	color: #1a53ff;
+}
+
+#link6 > h4 {
+	font-size: 22px;
+	color: #ff4000;
+}
+
+#link7 > h4 {
+	font-size: 22px;
+	color: #ac39ac;
+}
+
+#link8 > h4 {
+	font-size: 22px;
+	color: #b30000;
+}
+		
+.shopping-cart > button{
+	font-size:1rem; 
+	line-height: 2; 
+	border-radius: .25rem;
+	font-family: 'Bree Serif', serif;
+}
+#search{
+	font-family: 'Bree Serif', serif;
+}
+
+#categ{
+	margin-bottom: 10px;
+}
+/* Carousel */
+
+.carousel {
+	width: 100%;
+	/* height: 400px; */
+}
+#carouselFull .carousel-item{
+	max-height: 400px;
+}
+
+.imgBook {
+	margin-top: -500px;
+	max-height: 400px;
+	margin-left: 770px;
+	padding: 20px;
+				
+}
+
+.titleBook{
+	text-align: left;
+	font-size: 50px;
+	font-family: 'Bree Serif', serif;
+}
+.authorBook{
+		text-align: left;
+		font-size: 24px;
+		font-family: 'Damion', cursive;
+}
+
+	
+	
+.carousel-control.left, .carousel-control.right {
+		background-image: none;
+}
+.carousel-caption{
+		padding-bottom: 60px;
+}
+
+h2#mventes{
+		padding: 20px;
+		color: blue;
+}
+
+
+
+	
+.footer{
+	min-height: 200px; 
+	background-color: #f8f9fa;
+}
+.item1, .item2{
+	padding-top: 10px;
+}
+
+.item3{
+	 padding-top: 10px;	
+}
+.item1 > a{
+	font-size: 16px;
+	font-weight: 400;
+	font-family: 'Bree Serif', serif;
+}
+.item2 > a{
+	font-size: 16px;
+	font-weight: 400;
+	font-family: 'Bree Serif', serif;
+}
+.item3 > a{
+	font-size: 16px;
+	font-weight: 400;
+	font-family: 'Bree Serif', serif;
+}
+.item3 >h6{
+	font-family: 'Bree Serif', serif;
+}
+.adresse{
+	font-size: 16px;
+	font-family: 'Damion', cursive;
+}
+
+/*Category page */
+
+#nom_sous{
+	color: #212529;
+	font-size: 20px;
+	padding-bottom: 20px;
+}
+.buybutton{
+	background-color: #b7272d; 
+	color: #ffffff;
+	font-family: 'Bree Serif', serif;
+}
+
+
+
+aside > ul{
+	list-style: none;
+	
+}
+#ltetr > ul >li > a {
+	color: #333399;
+}
+#ltfra > ul > li > a{
+	color: #cc0033;
+}		
+
+#ltetr > ul >li > a:hover{
+	color: #b7272d;
+}
+#ltfra > ul > li > a:hover{
+	color: #212529;
+}
+#rel > ul >li > a{
+	color: #ac39ac;
+}
+#rel > ul > li > a:hover{
+	color: #212529;
+}
+
+/*Login page*/
+.login_title{
+	color: #212529;
+}
+
+
+
+	/*Media Queries*/
+	/* @media (min-width:1200px){
+
+	}*/
+
+	@media (min-width:992px) and (max-width: 1199.98px){
+		.titleBook{
+			font-size: 40px;
+		}
+		.imgBook {
+			margin-top: -377px;
+			max-height: 363px;
+			margin-left: 560px;
+			padding: 20px;
+						
+		}
+		.authorBook{
+			font-size: 18px;
+		}
+		.carousel-caption{
+			padding-bottom: 60px;
+		}
+		
+	}
+	@media  (min-width: 768px) and (max-width: 991.98px)  {
+		.titleBook{
+			font-size: 30px;
+		}
+		.authorBook{
+			font-size: 14px;
+		}
+		.carousel-caption{
+			padding-bottom: 40px;
+		}
+		.imgBook {
+			margin-top: -290px;
+			max-height: 270px;
+			margin-left: 490px;
+			padding: 20px;
+			
+		}
+	}
+
+	@media (max-width: 767.98px) {
+		.carousel-inner {
+	       width: 100%;
+	       
+		}
+        .imgBook {
+			margin-top: -180px;
+			max-height: 150px;
+			margin-left: 220px;
+			padding: 20px;
+			
+		}
+		.titleBook{
+			font-size: 12px;
+			text-align: left;
+           
+			
+		}
+		.authorBook{
+			font-size: 12px;
+			text-align: left;
+		}
+		.carousel-caption{
+			padding-bottom: 25px;
+		}
+
+		aside > ul >li > a {
+			font-size: 14px;
+				
+		}
+		aside{
+			
+			order: 1;
+			
+		}
+		.col_img{
+			order: 0;
+		}
+
+		
+}
+	
+	

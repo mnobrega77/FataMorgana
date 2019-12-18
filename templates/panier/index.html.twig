@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PanierController!{% endblock %}
+
+{% block body %}
+<hr>
+{% for flashMessage in app.session.flashbag.get('error') %}
+<p class="alert alert-danger">
+    {{ flashMessage }}
+</p>
+{% endfor %}
+        
+              <!--Table-->
+
+        <div class="table table-responsive" id="shopping_cart">
+            <table class="table table-striped table-bordered table-sm">
+                <h2 class="title text-center">Mon panier</h2><br>
+                
+                <thead class="thead-light">
+                    <tr class="text-center">
+                        <th scope="col">Livre</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Prix total</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in livres %}
+                    <tr>
+                        <td class="cart_product">
+                        <div class="image_livre">
+                            <a href="{{ path('livre', {'id': item.id}) }}"><img class="img-fluid" src="{{ asset('build/images/'~ item.image) }}" alt="" style="max-height:96px;">
+                        </div>
+                        <div class="product_detail">
+                            <div class="h6">
+                                <a href="{{ path('livre', {'id': item.id}) }}">{{ item.titre }}</a>
+                            </div>
+                            <div class="auteur">{{ item.auteur }}</div>
+                            <div class="prix">Prix: {{ item.prix }} €</div>
+                        </div>
+                        </td>
+                        
+                        <td class="cart_product text-center"><a href="{{ path("panier_plus", { id: item.id }) }}"><i class="fa fa-plus"></i></a><input type="text" class="text-center" size="2" value="{{ panier[item.id] }}" readonly><a href="{{ path("panier_moins", { id: item.id }) }}"><i class="fa fa-minus"></i></a>
+                        <div class="remove">
+                        <a href="{{ path("panier_remove", { id: item.id }) }}"> <i class="fa fa-trash"></i></a>
+                        </div>
+
+                        </td>
+                        <td class="cart_product">{{ item.prix * panier[item.id] }} €</td>                       
+                            
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                        <tr class="total_price" style="font-weight:bold;"">
+                            <td colspan="2" class="text-right">
+                                <span>Total TTC</span>
+                            </td>
+                            <td scope="col" class="">
+                                <span>{{ total }} € </span>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+            </table>
+            
+        
+            <div class="text-center">
+                <a href="{{ path("home") }}" role="button" class="btn btn-primary btn-sm">Continuez vos achats</a>
+             
+                <a href="login.html" role="button" class="btn btn-sm"
+                        style="background-color: #b7272d; color: #ffffff;">Valider la commande</a>
+                
+            </div>
+        </div>
+
+{% endblock %}

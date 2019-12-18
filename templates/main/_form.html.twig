@@ -1,0 +1,43 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.id) }}</div>
+    <div class="col-md-6">{{ form_row(form.ref) }}</div>              
+</div>
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.titre) }}</div>
+    <div class="col-md-6">{{ form_row(form.souscategorie) }}</div>
+</div>
+<div class="row">
+    <div class="col-6">{{ form_row(form.auteur) }}</div>
+    
+    <div class="col-6 form-group">
+    <label for="autre_auteur">Autre auteur</label>
+    <input type="text" class="form-control" name= "autre_auteur">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.prachat) }}</div>
+    <div class="col-md-6">{{ form_row(form.stock) }}</div>              
+</div>
+
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.editeur) }}</div>
+    <div class="col-md-6 form-group">
+    <label for="autre_auteur">Autre éditeur</label>
+    <input type="text" class="form-control" name= "autre_editeur">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.fournisseur) }}</div>
+    <div class="col-md-6 form-group">
+    <label for="autre_fournisseur"></label>
+    <a href="{{ path('creer_fournisseur') }}"><button type="button" class="form-control btn btn-secondary btn-lg btn-block" name= "autre_fournisseur">Ajouter un nouveau fournisseur</button></a>
+
+    </div>
+</div>
+                  
+
+
+
+{{ form_end(form) }}
