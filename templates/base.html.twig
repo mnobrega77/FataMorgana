@@ -73,8 +73,12 @@
                                     type="submit">Rechercher</button>
                             </form>
                             <div class="shopping-cart">
-
-                                <a href="{{ path("panier_liste") }}" class="button">Mon panier <i class="fa fa-shopping-cart"></i> {{ app.session.get("panier") | reduce((carry, v) => carry + v) }}</a>
+                                
+                                <a href="{{ path("panier_liste") }}" class="button">Mon panier <i class="fa fa-shopping-cart"></i>
+                                {% if carry is defined %}
+                                    {{ app.session.get("panier")|reduce((carry, v) => carry + v) }}
+                                {% endif %}
+                                </a>
                             </div>
                         </div>
                     </nav>

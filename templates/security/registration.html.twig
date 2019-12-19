@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription {% endblock %}
+
+{% block body %}
+    <h2 class="login_title text-center mt-5 mb-5">Page d'inscription</h2>
+
+    {{ form_start(form) }}
+    {{ form_row(form.client.nom) }}
+    {{ form_row(form.client.prenom, {'label': 'Prénom'}) }}
+    {{ form_row(form.client.adresse) }}
+    {{ form_row(form.client.cp, {'label': 'Code Postal'}) }}
+    {{ form_row(form.client.ville) }}
+    {{ form_row(form.client.tel, {'label': 'Téléphone'}) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.confirmPassword) }}
+
+
+    <button type="submit" class="btn btn-success mb-5">Inscription</button>
+{{ form_end(form) }}
+
+{% endblock %}
