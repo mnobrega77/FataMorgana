@@ -245,10 +245,15 @@ aside > ul{
 	color: #212529;
 }
 
-/*Login page*/
-.login_title{
-	color: #212529;
+/*Login page/Registration page*/
+#login_title{
+	color: #b7272d;
 }
+#login_button{
+	background-color: #b7272d;
+	color:white;
+}
+
 
 
 

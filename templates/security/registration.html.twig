@@ -3,22 +3,73 @@
 {% block title %}Inscription {% endblock %}
 
 {% block body %}
-    <h2 class="login_title text-center mt-5 mb-5">Page d'inscription</h2>
-
+<div class="row">
+    <div class="col-md-6 text-center mb-3 mt-3" style="margin: auto; text-align: center;">
+        <h2 id="login_title" class="login_title text-center mt-4 mb-4">Page d'inscription</h2>
+    </div>
+</div>
     {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.client.nom) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.client.prenom, {'label': 'Prénom'}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.client.adresse) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.client.cp, {'label': 'Code Postal'}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.client.ville) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.client.tel, {'label': 'Téléphone'}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.username) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.email) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.password) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" style="margin:auto">
     {{ form_row(form.confirmPassword) }}
-
-
-    <button type="submit" class="btn btn-success mb-5">Inscription</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 mb-2 text-center" style="margin:auto;">
+            <button type="submit" id="login_button" class="btn btn-md mb-5">Valider</button>
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-4 mb-5" style="margin:auto">
+            <p class="text-center">Déjà inscrit? <a class="signin-link from-toggle"
+                href="{{ path('app_login') }}"><b>Identifiez-vous!</b></p>
+        </div>
+    </div>
 {{ form_end(form) }}
 
 {% endblock %}

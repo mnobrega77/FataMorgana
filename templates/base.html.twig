@@ -60,7 +60,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Mon compte</a>
+                                    <a class="nav-link" href="{{ path('app_login')}}">Mon compte</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('liste')}}">Afficher les livres</a>
@@ -75,9 +75,10 @@
                             <div class="shopping-cart">
                                 
                                 <a href="{{ path("panier_liste") }}" class="button">Mon panier <i class="fa fa-shopping-cart"></i>
-                                {% if carry is defined %}
-                                    {{ app.session.get("panier")|reduce((carry, v) => carry + v) }}
-                                {% endif %}
+                                {# {{ dump(app.Session.get("panier"))}} #}
+                                {# {% if carry is defined %} #}
+                                    {{ app.session.get("panier")?app.session.get("panier")|reduce((carry, v) => carry + v):'' }}
+                                {# {% endif %} #}
                                 </a>
                             </div>
                         </div>

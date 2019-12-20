@@ -23,6 +23,11 @@ use Doctrine\ORM\EntityRepository;
 use App\Form\LivreType;
 use App\Form\SousCategorieType;
 use App\Form\FournisseurType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+ * @IsGranted("ROLE_ADMIN")
+ */
 
 class AdminController extends AbstractController
 {
@@ -34,13 +39,14 @@ class AdminController extends AbstractController
     public function showAll(LivreRepository $repo)
     {
        $livres = $repo->findAll();
-       return $this->render('admin/liste.html.twig', [
+       return $this->render('/admin/liste.html.twig', [
            'livres' =>$livres
        ]);
+       
     }
 
     /**
-     * @Route("/liste/new", name="ajouter_livre")
+     * @Route("/admin/liste/new", name="ajouter_livre")
      */
 
      public function create(Request $request, EntityManagerInterface $em)
@@ -107,7 +113,7 @@ class AdminController extends AbstractController
 
    
    /**
-    * @Route("/liste/{id}", name="editer_livre", methods="GET|POST")
+    * @Route("/admin/liste/{id}", name="editer_livre", methods="GET|POST")
     */
     public function edit(Livre $livre, Request $request, EntityManagerInterface $em){
                 
@@ -169,7 +175,7 @@ class AdminController extends AbstractController
         }
 
    /**
-    * @Route("/liste/{id}", name="supprimer_livre", methods="DELETE")
+    * @Route("/admin/liste/{id}", name="supprimer_livre", methods="DELETE")
     */
    public function delete(Livre $livre, Request $request, EntityManagerInterface $em)
    {   
@@ -200,7 +206,7 @@ class AdminController extends AbstractController
      // Créer un nouveau fournisseur
 
    /**
-     * @Route("/main/ajoutfournisseur", name="creer_fournisseur")
+     * @Route("/admin/ajoutfournisseur", name="creer_fournisseur")
      */
 
      public function newFour(Request $request, EntityManagerInterface $em)
