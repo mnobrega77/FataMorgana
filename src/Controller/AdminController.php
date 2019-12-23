@@ -38,6 +38,8 @@ class AdminController extends AbstractController
 
     public function showAll(LivreRepository $repo)
     {
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+       
        $livres = $repo->findAll();
        return $this->render('/admin/liste.html.twig', [
            'livres' =>$livres
