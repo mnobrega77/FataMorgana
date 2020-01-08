@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<div class="col-12 text-center mb-5 mt-5">
+    <h3>Commande</h3>
+</div>
+<div class="col-12 text-center mb-5 mt-5">
+
+    <h5>Total de la commande: {{total}}  €</h5>
+</div>
+
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-12 mt-4">{{ form_row(form.adFacture) }}</div>              
+</div>
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.villeFacture) }}</div>  
+    <div class="col-md-6">{{ form_row(form.cpFacture) }}</div>             
+</div>
+<div class="row">
+    <div class="col-12">{{ form_row(form.adLivr) }}</div>              
+</div>
+<div class="row">
+    <div class="col-md-6">{{ form_row(form.villeLivr) }}</div>  
+    <div class="col-md-6">{{ form_row(form.cpLivr) }}</div>             
+</div>
+
+ <div class="row">
+        <div class="col-md-2 mb-5 mt-5 text-center" style="margin:auto;">
+            <button class="btn btn-md" type="submit" id="commande_button">
+                Commander
+            </button>
+        </div>
+    </div>
+
+
+{{ form_end(form) }}
+
+{% endblock %}

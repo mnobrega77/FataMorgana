@@ -37,7 +37,7 @@ class ClientType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Client::class,
+            'data_class' => Client::class            
         ]);
     }
 }

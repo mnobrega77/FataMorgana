@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
 <hr>
@@ -36,7 +36,7 @@
                                 <a href="{{ path('livre', {'id': item.id}) }}">{{ item.titre }}</a>
                             </div>
                             <div class="auteur">{{ item.auteur }}</div>
-                            <div class="prix">Prix: {{ item.prix }} €</div>
+                            <div class="prix">Prix: {{ item.prixapayer  }} €</div>
                         </div>
                         </td>
                         
@@ -46,13 +46,13 @@
                         </div>
 
                         </td>
-                        <td class="cart_product">{{ item.prix * panier[item.id] }} €</td>                       
+                        <td class="cart_product">{{ item.prixapayer * panier[item.id] }} €</td>                       
                             
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
-                        <tr class="total_price" style="font-weight:bold;"">
+                        <tr class="total_price" style="font-weight:bold;">
                             <td colspan="2" class="text-right">
                                 <span>Total TTC</span>
                             </td>
@@ -67,10 +67,15 @@
         
             <div class="text-center">
                 <a href="{{ path("home") }}" role="button" class="btn btn-primary btn-sm">Continuez vos achats</a>
-             
-                <a href="{{ path('app_login') }}" role="button" class="btn btn-sm"
+
+              {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('panier_valider') }}" role="button" class="btn btn-sm"
                         style="background-color: #b7272d; color: #ffffff;">Valider la commande</a>
-                
+               {% else %} 
+               <a href="{{ path('app_login') }}" role="button" class="btn btn-sm"
+                        style="background-color: #b7272d; color: #ffffff;">Valider la commande</a>
+            {% endif %}
+
             </div>
         </div>
 

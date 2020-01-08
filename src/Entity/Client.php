@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
+ * @ORM\Table(name="client")
  */
 class Client
 {
@@ -59,7 +62,7 @@ class Client
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="client", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="user_id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $userId;
 
@@ -68,11 +71,22 @@ class Client
      */
     private $commRef;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="cliId")
+     */
+    private $commandes;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    
     public function getNom(): ?string
     {
         return $this->nom;
@@ -192,4 +206,43 @@ class Client
 
         return $this;
     }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setCliId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
+            // set the owning side to null (unless already changed)
+            if ($commande->getCliId() === $this) {
+                $commande->setCliId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(){
+        // to show the name of the Author in the select
+        return $this->nom;
+        // to show the id in the select
+        // return $this->id;
+    }
+    
 }

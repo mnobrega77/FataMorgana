@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
  */
 
 class AccountController extends AbstractController
+
 {
     /**
      * @Route("/account", name="app_account")

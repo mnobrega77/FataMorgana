@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Livre;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Commande;
+use App\Entity\Contient;
+use App\Form\CommandeType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PanierController extends AbstractController
 {
@@ -28,7 +32,13 @@ class PanierController extends AbstractController
 
         foreach($livres as $item) {
             $prixTotal = $item->getPrix() + $item->getPrix()*$panier[$item->getId()];
-            $total += $item->getPrix()*$panier[$item->getId()];
+            if ($this->getUser() && $this->getUser()->getClient()) {
+                $item->prixapayer = ( $item->getPrix() / 2) *  $this->getUser()->getClient()->getCoeff();
+            }
+            else {
+                $item->prixapayer = $item->getPrix() ; 
+            }
+            $total += $item->prixapayer*$panier[$item->getId()];
         }
 
         // dump($livres);
@@ -123,4 +133,76 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute("panier_liste");
     }
+
+    /**
+     * @Route("/panier_valider", name="panier_valider")
+     */
+
+    public function commande(Request $request, EntityManagerInterface $em, SessionInterface $session)
+    {
+        $repo = $this->getDoctrine()->getRepository(Livre::class);
+        $commande = new Commande();
+        $client = $this->getUSer()->getClient();
+        // dump($client);
+        
+        $panier = $session->get("panier", []);
+        $livres = $repo->findById(array_keys($panier));
+        $prixTotal = 0;
+        $total = 0;
+
+        foreach($livres as $item) {
+            $prixTotal = $item->getPrix() + $item->getPrix()*$panier[$item->getId()];
+            $item->prixapayer = ( $item->getPrix() / 2) *  $this->getUser()->getClient()->getCoeff();
+            $total += $item->prixapayer*$panier[$item->getId()];
+            
+        }
+
+        $commande->setCliId($client);
+        $commande->setDate(new \DateTime());
+        $commande->setAdFacture($client->getAdresse());
+        $commande->setVilleFacture($client->getVille());
+        $commande->setCpFacture($client->getCp());
+        $commande->setAdLivr($client->getAdresse());
+        $commande->setVilleLivr($client->getVille());
+        $commande->setCpLivr($client->getCp());
+        $commande->setCpLivr($client->getCp());
+        
+        $form = $this->createForm(CommandeType::class, $commande);
+        $form->handleRequest($request);
+        
+        dump($panier);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($commande);
+            
+
+            foreach ($panier as $id_livre => $qte_livre) {
+                $contient = new Contient();
+                $livre = $repo->find($id_livre);
+                $contient->setCmmdId($commande);
+                $contient->setLvrId($livre);
+                $contient->setCmmdQte($qte_livre);
+                $contient->setLvrPrunitHT($livre->prixapayer);
+
+                $em->persist($contient);
+                $em->flush();
+            }
+
+        
+        
+        $em->flush();
+        $this->addFlash('success', 'Votre commande a été enregistrée!');
+        $session->set("panier", array());
+           return $this->redirectToRoute('home');
+          
+
+   }
+       return $this->render('panier/commande.html.twig', [
+           'form' => $form->createView(),
+           'panier' =>$panier,
+           'total' =>$total
+           
+       
+       ]);
+    } 
 }
