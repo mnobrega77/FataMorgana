@@ -12,32 +12,32 @@ class Facture
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name ="fact_id", type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(name ="fact_date", type="date")
      */
     private $date;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(name ="fact_totalHT", type="float")
      */
     private $totalHT;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(name ="fact_tva", type="float")
      */
     private $tva;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(name ="fact_reduc", type="float", nullable=true)
      */
     private $reduc;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(name ="fact_totalTTC", type="float")
      */
     private $totalTTC;
 
