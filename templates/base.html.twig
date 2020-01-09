@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}FataMorgana{% endblock %}</title>
         {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
         <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Damion&display=swap" rel="stylesheet">
@@ -83,8 +83,8 @@
                                 </li>
                             {% endif %}
                             </ul>
-                            <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2" type="search" placeholder="titre, auteur..."
+                            <form class="form-inline my-2 my-lg-0" action="{{ path("recherche") }}" method="post">
+                                <input class="form-control mr-sm-2" type="search" placeholder="titre, auteur..." name="recherche"
                                     aria-label="Search">
                                 <button class="btn btn-outline-success my-2 my-sm-0 mr-2" id="search"
                                     type="submit">Rechercher</button>

@@ -82,4 +82,20 @@ public function findBySousCategorie($id):array
 
 }    
 
+
+public function findBooksByData($data):array
+{
+    return $this->createQueryBuilder('l')
+        ->join('l.auteur', 'a')
+        ->join('l.editeur', 'e')
+        ->where('l.titre like :data')
+        ->orWhere('l.ref like :data')
+        ->orWhere('a.nom like :data')
+        ->orWhere('e.nom like :data')
+        ->setParameter('data', "%" . $data . "%")
+        ->getQuery()
+        ->getResult();
+
+}   
+
 }

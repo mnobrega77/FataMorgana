@@ -194,7 +194,6 @@ class AdminController extends AbstractController
    }
 
    
-
    // 
    // public function temporaryUploadAction(Request $request)
    // {

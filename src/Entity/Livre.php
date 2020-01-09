@@ -174,13 +174,13 @@ class Livre
     private $auteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Editeur", inversedBy="livres")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Editeur", inversedBy="livres", fetch="EAGER")
      * @ORM\JoinColumn(name="edit_id", referencedColumnName="edit_id", nullable=false)
      */
     private $editeur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="livres")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="livres", fetch="EAGER")
      * @ORM\JoinColumn(name="four_id", referencedColumnName="four_id", nullable=false)
      */
     private $fournisseur;

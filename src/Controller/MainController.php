@@ -25,8 +25,6 @@ use App\Form\SousCategorieType;
 use App\Form\FournisseurType;
 
 
-
-
 class MainController extends AbstractController
 {
     
@@ -96,4 +94,22 @@ class MainController extends AbstractController
            'livre' =>$livre
        ]);
    }
+
+   /**
+     * @Route("/recherche", name="recherche")
+     */
+    public function recherche(Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Livre::class);
+        $critere = $request->request->get("recherche");
+
+        $resultats = $repo->findBooksByData($critere);
+        // dump($resultats);
+
+
+        return $this->render('main/recherche.html.twig', [
+            'resultats' => $resultats
+        ]);
+
+    }
 }

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Gérez votre espace personnel!{% endblock %}
+{% block title %}FataMorgana{% endblock %}
 
 {% block body %}
     <h2 class="text-center mt-5 mb-5">Bonjour, {{ app.user.client.prenom }}, bienvenue dans votre espace personnel!</h2>
@@ -26,9 +26,53 @@
     <label for="ville">Ville</label>
         <input type="text" class="form-control" name= "ville" placeholder="{{ app.user.client.ville }}">
     </div>
-    <div class="form-group mb-5">
+    <div class="form-group">
     <label for="tel">Téléphone</label>
         <input type="text" class="form-control" name= "tel" placeholder="{{ app.user.client.tel }}">
     </div>
+    <div class="form-group">
+    <label for="commandes">Historique des commandes</label>
+    </div>
+
+
+    <div class="accordion mb-5" id="accordionExample">
+
+    {% for commande in commandes %}
+
+  <div class="card mb-2">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          {{ commande.id }}
+        </button>
+      </h2>
+    </div>   
+{% for contient in commande.contients %}
+     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+       <p>Titre du livre: {{ contient.lvrId.titre }}</p>
+       <p>Auteur: {{ contient.lvrId.auteur }}</p>
+       <p>Quantité: {{ contient.cmmdQte }}</p>
+       <p>Date de commande: {{ commande.date|date("d/m/Y") }}</p>
+      </div>
+    </div>
+     {% endfor %}
+  </div>
+   {% endfor %}
+</div>
+        {# {% for commande in commandes %}
+        <tr>
+            <td>{{ commande.id }} </td>      
+            <td>{{ commande.date|date("d/m/Y") }}</td>
+        </tr>
+        {% for contient in commande.contients %}
+            <tr>
+            <td>{{ contient.lvrId.titre }} </td>      
+            <td>{{ contient.cmmdQte }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %} #}
+    
+
     </form>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Client;
+use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,14 +20,16 @@ class AccountController extends AbstractController
     /**
      * @Route("/account", name="app_account")
      */
-    public function index(LoggerInterface $logger)
+    public function index(LoggerInterface $logger, ClientRepository $repo)
     {
+        $client = $this->getUser()->getClient();
         // dd($this->getUser()->getUsername());
         $logger->debug('Checking account page for '.$this->getUser()->getEmail());
-
+        //$cmmd = $repo->findById($client->getId());
 
         return $this->render('account/index.html.twig', [
-            'controller_name' => 'AccountController',
+            
+            'commandes' => $client->getCommandes()
         ]);
     }
 

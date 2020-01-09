@@ -41,7 +41,7 @@ class TestController extends AbstractController
      */
    public function showBook(LivreRepository $repo)
    {
-       $livre = $repo->findOneByTitle('Judas');
+      $livre = $repo->findOneByTitle('Judas');
        return $this->render('test/showtest.html.twig', [
            'livre' =>$livre
        ]);

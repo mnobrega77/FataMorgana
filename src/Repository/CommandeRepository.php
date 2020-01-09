@@ -22,19 +22,20 @@ class CommandeRepository extends ServiceEntityRepository
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    
+    // public function findByExampleField($cliId)
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->join('c.cliId', 'cl')
+    //         ->andWhere('c.cliId = :cliId')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('c.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
 
     /*
     public function findOneBySomeField($value): ?Commande

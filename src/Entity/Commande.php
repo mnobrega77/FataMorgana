@@ -73,6 +73,7 @@ class Commande
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Facture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="fact_id", referencedColumnName="fact_id", nullable=false)
      */
     private $factId;
 

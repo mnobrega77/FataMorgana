@@ -32,7 +32,9 @@ class PanierController extends AbstractController
 
         foreach($livres as $item) {
             $prixTotal = $item->getPrix() + $item->getPrix()*$panier[$item->getId()];
+
             if ($this->getUser() && $this->getUser()->getClient()) {
+                
                 $item->prixapayer = ( $item->getPrix() / 2) *  $this->getUser()->getClient()->getCoeff();
             }
             else {
@@ -142,7 +144,7 @@ class PanierController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Livre::class);
         $commande = new Commande();
-        $client = $this->getUSer()->getClient();
+        $client = $this->getUser()->getClient();
         // dump($client);
         
         $panier = $session->get("panier", []);
@@ -173,6 +175,7 @@ class PanierController extends AbstractController
         dump($panier);
 
         if($form->isSubmitted() && $form->isValid()) {
+            
             $em->persist($commande);
             
 
@@ -188,8 +191,7 @@ class PanierController extends AbstractController
                 $em->flush();
             }
 
-        
-        
+                
         $em->flush();
         $this->addFlash('success', 'Votre commande a été enregistrée!');
         $session->set("panier", array());

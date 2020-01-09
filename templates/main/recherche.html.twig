@@ -1,0 +1,42 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="col-12 text-center mt-4 mb-5">
+    <h3>Votre recherché a donné {{ resultats|length }} résultat(s)</h3>
+</div>
+
+<div class="table-responsive{-sm|-md} mb-5">
+<table class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Référence</th>            
+            <th>Image</th>
+            <th>Auteur</th>
+            <th>Editeur</th>
+            <th>Prix</th>
+            <th></th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for livre in resultats %}
+        <tr>
+            <td>{{ livre.titre }} </td>
+            <td>{{ livre.ref }}</td>
+            <td><img src ="{{ asset('build/images/'~ livre.image) }}" style="max-height:200px;"></td>
+            <td>{{ livre.auteur }}</td>
+            <td>{{ livre.editeur }}</td>
+            <td>{{ livre.prix|number_format (2, ",", " ")}}€ </td>
+            
+           
+            <td>
+                <a href="{{ path('livre', {id: livre.id} )}}" class="btn btn-outline-dark" role="button">Détail</a>
+                
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
