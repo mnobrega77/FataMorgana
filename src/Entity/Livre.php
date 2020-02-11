@@ -2,15 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
  * @ORM\Table(name="livre")
+ * @ApiResource(
+ *      collectionOperations={"get"={"normalization_context"={"groups"="livre:read"}}},
+ *      attributes={
+ *          "formats"={"jsonld", "json", "html", "csv"={"text/csv"}}
+ *     }      
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"titre": "partial"})
  */
 
 class Livre
@@ -20,6 +30,7 @@ class Livre
      * @ORM\Column(name="lvr_id", type="string", length=10, nullable=false, unique=true)
      * @ORM\Id
      * @Assert\NotBlank
+     * @Groups("livre:read")
      */
     private $id;
 
@@ -36,6 +47,7 @@ class Livre
     /**
      * @ORM\Column(name="lvr_ref", type="string", length=30, nullable=false)
      * @Assert\NotBlank
+     * @Groups("livre:read")
      */
     private $ref;
 
@@ -52,6 +64,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_detail", type="string", length=200, nullable=false)
+     * @Groups("livre:read")
      */
     private $detail;
 
@@ -69,6 +82,7 @@ class Livre
     /**
      * @ORM\Column(name="lvr_titre", type="string", length=150, nullable=false)
      * @Assert\NotBlank
+     * @Groups("livre:read")
      */
     private $titre;
 
@@ -85,6 +99,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_resume", type="text", nullable=false)
+     * @Groups("livre:read")
      */
     private $resume;
 
@@ -102,6 +117,7 @@ class Livre
      * @ORM\Column(name="lvr_prachat", type="float", precision=10, scale=8, nullable=false)
      * @Assert\NotBlank
      * @Assert\Positive
+     * @Groups("livre:read")
      */
     private $prachat;
 
@@ -122,6 +138,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_photo", type="string", length=200, nullable=true)
+    
      */
     private $image;
 
@@ -140,6 +157,7 @@ class Livre
      * @ORM\Column(name="lvr_stock", type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\PositiveOrZero
+     * @Groups("livre:read")
      */
     private $stock;
 
@@ -155,6 +173,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_date_edition", type="date", nullable=false)
+     * @Groups("livre:read")
      */
     private $dateEdition;
 
@@ -164,24 +183,28 @@ class Livre
      
      * @ORM\ManyToOne(targetEntity="App\Entity\SousCategorie", inversedBy="livres")
      * @ORM\JoinColumn(name="scat_id", referencedColumnName="scat_id", nullable=false)
+     * @Groups("livre:read")
      */
     private $souscategorie;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Auteur", inversedBy="livres")
      * @ORM\JoinColumn(name="aut_id", referencedColumnName="aut_id", nullable=false)
+     * @Groups("livre:read")
      */
     private $auteur;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Editeur", inversedBy="livres", fetch="EAGER")
      * @ORM\JoinColumn(name="edit_id", referencedColumnName="edit_id", nullable=false)
+     * 
      */
     private $editeur;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="livres", fetch="EAGER")
      * @ORM\JoinColumn(name="four_id", referencedColumnName="four_id", nullable=false)
+     *
      */
     private $fournisseur;
 
