@@ -18,7 +18,6 @@ class SousCategorie
     /**
      * @ORM\Column(name="scat_id", type="string", length=6, nullable=false, unique=true)
      * @ORM\Id()
-     * @Groups("livre:read")
      */
     private $id;
 
@@ -34,7 +33,7 @@ class SousCategorie
     }
     /**
      * @ORM\Column(name="scat_nom", type="string", length=50, nullable=false)
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $nom;
 
@@ -43,6 +42,7 @@ class SousCategorie
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="sousCategories")
      * @ORM\JoinColumn(name="cat_id", referencedColumnName="cat_id", nullable=false)
+     * 
      */
     private $categorie;
 

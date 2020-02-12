@@ -2,20 +2,22 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\File;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
  * @ORM\Table(name="livre")
- * @ApiResource(
+ * @ApiResource(iri="http://schema.org/Livre",
  *      collectionOperations={"get"={"normalization_context"={"groups"="livre:read"}}},
+ *      itemOperations={"get"={"normalization_context"={"groups"="livre:item"}}},
  *      attributes={
  *          "formats"={"jsonld", "json", "html", "csv"={"text/csv"}}
  *     }      
@@ -30,7 +32,7 @@ class Livre
      * @ORM\Column(name="lvr_id", type="string", length=10, nullable=false, unique=true)
      * @ORM\Id
      * @Assert\NotBlank
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $id;
 
@@ -47,7 +49,8 @@ class Livre
     /**
      * @ORM\Column(name="lvr_ref", type="string", length=30, nullable=false)
      * @Assert\NotBlank
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
+     * @ApiProperty(iri="http://schema.org/name")
      */
     private $ref;
 
@@ -64,7 +67,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_detail", type="string", length=200, nullable=false)
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $detail;
 
@@ -80,9 +83,12 @@ class Livre
     }
 
     /**
+     * @var string The Book's title.
+     * 
      * @ORM\Column(name="lvr_titre", type="string", length=150, nullable=false)
      * @Assert\NotBlank
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
+     * @ApiProperty(iri="http://schema.org/titre")
      */
     private $titre;
 
@@ -99,7 +105,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_resume", type="text", nullable=false)
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $resume;
 
@@ -117,7 +123,7 @@ class Livre
      * @ORM\Column(name="lvr_prachat", type="float", precision=10, scale=8, nullable=false)
      * @Assert\NotBlank
      * @Assert\Positive
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $prachat;
 
@@ -157,7 +163,7 @@ class Livre
      * @ORM\Column(name="lvr_stock", type="integer", nullable=false)
      * @Assert\NotBlank
      * @Assert\PositiveOrZero
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $stock;
 
@@ -173,7 +179,7 @@ class Livre
 
     /**
      * @ORM\Column(name="lvr_date_edition", type="date", nullable=false)
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $dateEdition;
 
@@ -183,20 +189,23 @@ class Livre
      
      * @ORM\ManyToOne(targetEntity="App\Entity\SousCategorie", inversedBy="livres")
      * @ORM\JoinColumn(name="scat_id", referencedColumnName="scat_id", nullable=false)
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $souscategorie;
 
     /**
+     
      * @ORM\ManyToOne(targetEntity="App\Entity\Auteur", inversedBy="livres")
      * @ORM\JoinColumn(name="aut_id", referencedColumnName="aut_id", nullable=false)
-     * @Groups("livre:read")
+     *  @ApiProperty(iri="http://schema.org/auteur")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $auteur;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Editeur", inversedBy="livres", fetch="EAGER")
      * @ORM\JoinColumn(name="edit_id", referencedColumnName="edit_id", nullable=false)
+     * @Groups({"livre:read", "livre:item"})
      * 
      */
     private $editeur;

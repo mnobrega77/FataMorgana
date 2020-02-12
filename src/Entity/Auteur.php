@@ -37,7 +37,7 @@ class Auteur
     /**
      * @ORM\Column(name="aut_nom", type="string", length=50, nullable=false)
      * @Assert\NotBlank
-     * @Groups("livre:read")
+     * @Groups({"livre:read", "livre:item"})
      */
     private $nom;
 

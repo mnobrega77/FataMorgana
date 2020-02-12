@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,6 +40,7 @@ class Editeur
      * pattern ="/\d/"),
      * match=false,
      * message="Le nom ne doit pas contenir des chiffres"
+     * @Groups({"livre:read", "livre:item"})
      */
     private $nom;
 

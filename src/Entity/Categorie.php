@@ -33,6 +33,7 @@ class Categorie
     }
     /**
      * @ORM\Column(name="cat_nom", type="string", length=50, nullable=false)
+     *@Groups({"livre:read", "livre:item"})
      */
     private $nom;
 
