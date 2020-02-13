@@ -11,13 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, MailerInterface $mailer)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -30,11 +32,22 @@ class SecurityController extends AbstractController
             $em->persist($user);
             $em->flush();
 
+        //Sending an email to the new user
+
+            // $email = (new Email())
+            // ->from('mn@fatamorgana.com')
+            // ->to($user->getEmail())
+            // ->subject("Bienvenue sur notre site!")
+            // ->text("Nous sommes heureux de vous connaître{$user->getUsername()}!");
+
+            // $mailer->send($email);
         }
+        
         // dump($user);
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
          ]);
+        
     }
 
     /**
