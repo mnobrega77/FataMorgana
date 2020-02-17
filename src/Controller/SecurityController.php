@@ -34,19 +34,24 @@ class SecurityController extends AbstractController
 
         //Sending an email to the new user
 
-            // $email = (new Email())
-            // ->from('mn@fatamorgana.com')
-            // ->to($user->getEmail())
-            // ->subject("Bienvenue sur notre site!")
-            // ->text("Nous sommes heureux de vous connaître{$user->getUsername()}!");
+            $email = (new Email())
+            ->from('mn@fatamorgana.com')
+            ->to($user->getEmail())
+            ->subject("Bienvenue sur notre site!")
+            ->text("Nous sommes heureux de vous connaître, {$user->getUsername()}!");
 
-            // $mailer->send($email);
+            $mailer->send($email);
+
+            return $this->redirectToRoute('app_login');
+
         }
-        
-        // dump($user);
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
          ]);
+        
+        // dump($user);
+        
+         
         
     }
 
