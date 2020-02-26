@@ -16,10 +16,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
  * @ORM\Table(name="livre")
  * @ApiResource(iri="http://schema.org/Livre",
- *      collectionOperations={"get"={"normalization_context"={"groups"="livre:read"}}},
- *      itemOperations={"get"={"normalization_context"={"groups"="livre:item"}}},
- *      attributes={
- *          "formats"={"jsonld", "json", "html", "csv"={"text/csv"}}
+ *      attributes={"security"},
+ *      collectionOperations={
+ *          "get"={"normalization_context"={"groups"="livre:read"}},
+ *          "post"={"normalization_context"={"groups"="livre:read"}, "security"="is_granted('ROLE_ADMIN')", "security_message"="Only admins can add books."}
+ * 
+ *      },
+ *      itemOperations={
+ *          "get"={"normalization_context"={"groups"="livre:item"}},
+ *          "put"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Only admins can update books."},
+ *          "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Only admins can delete books."},
+ *          "patch"={"normalization_context"={"groups"="livre:item"}}
+ *      
  *     }      
  * )
  * @ApiFilter(SearchFilter::class, properties={"titre": "partial"})
@@ -123,7 +131,6 @@ class Livre
      * @ORM\Column(name="lvr_prachat", type="float", precision=10, scale=8, nullable=false)
      * @Assert\NotBlank
      * @Assert\Positive
-     * @Groups({"livre:read", "livre:item"})
      */
     private $prachat;
 
@@ -136,6 +143,10 @@ class Livre
         $this->prachat = $prachat;
         return $this;
     }
+    /**
+     * @Groups({"livre:read", "livre:item"})
+     */
+    private $prix;
 
     public function getPrix(): ?float
     {
@@ -213,6 +224,7 @@ class Livre
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="livres", fetch="EAGER")
      * @ORM\JoinColumn(name="four_id", referencedColumnName="four_id", nullable=false)
+     * @Groups({"livre:read", "livre:item"})
      *
      */
     private $fournisseur;
