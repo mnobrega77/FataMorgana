@@ -22,6 +22,9 @@ class Client
 
     /**
      * @ORM\Column(name="cli_nom", type="string", length=30)
+     * @Assert\Regex(
+     *      pattern = "/^[A-zÀ-ú\s,]+$/",
+     *      match=true)
      */
     private $nom;
 

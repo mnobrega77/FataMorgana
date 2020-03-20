@@ -101,7 +101,7 @@ class AdminController extends AbstractController
                $em->flush();
                $this->addFlash('success', 'Livre ajouté avec succès!');
 
-           //return $this->redirectToRoute('liste');
+           return $this->redirectToRoute('liste');
 
        }
        return $this->render('admin/create.html.twig', [
