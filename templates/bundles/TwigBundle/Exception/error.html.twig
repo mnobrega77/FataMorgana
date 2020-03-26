@@ -1,0 +1,19 @@
+{# app/Resources/TwigBundle/views/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2 class="text-center mt-4 mb-4"style="color:red">Erreur "{{ status_code }} ".</h2>
+<div class="row">
+<div class="col-12 text-center mb-5">
+    <h1 style="color:red">Nous sommes désolés, la page que vous cherchez n'existe pas ou vous ne disposez pas du droit d'y accéder!</h1>
+</div>
+</div>   
+<div class="text-center mb-5">
+    <p>
+        Veuiller <a href="{{ path('app_login') }}"> vous connecter</a> ou  <a href="{{ path('home') }}"> retournez à la page d'accueil
+        </a>.
+    </p>
+</div>
+
+{% endblock %}
