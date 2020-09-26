@@ -30,7 +30,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      
  *     }      
  * )
- * @ApiFilter(SearchFilter::class, properties={"titre": "partial"})
+ * @ApiFilter(SearchFilter::class, properties={"titre": "partial", "auteur.nom"})
  */
 
 class Livre

@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SousCategorieRepository"))
  * @ORM\Table(name="souscategorie")
+ * @ApiResource()
  */
 
 class SousCategorie

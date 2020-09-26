@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Form\RegistrationType;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 class SecurityController extends AbstractController
 {
@@ -32,15 +35,15 @@ class SecurityController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-        //Sending an email to the new user
+        // Sending an email to the new user
 
-            // $email = (new Email())
-            // ->from('mn@fatamorgana.com')
-            // ->to($user->getEmail())
-            // ->subject("Bienvenue sur notre site!")
+            $email = (new TemplatedEmail())
+            ->from('mn@fatamorgana.com')
+            ->to(new Address($user->getEmail(), $user->getUsername()))
+            ->subject("Bienvenue sur notre site!")
             // ->text("Nous sommes heureux de vous connaître, {$user->getUsername()}!");
-
-            // $mailer->send($email);
+            ->htmlTemplate('emails/reg_confirm.html.twig');
+            $mailer->send($email);
 
             return $this->redirectToRoute('app_login');
 
