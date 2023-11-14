@@ -3,19 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
  * @ORM\Table(name="livre")
- * @ApiResource(iri="http://schema.org/Livre",
+ * #[ApiResource(iri="http://schema.org/Livre")],
  *      attributes={"security"},
  *      collectionOperations={
  *          "get"={"normalization_context"={"groups"="livre:read"}},
@@ -30,7 +30,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  *      
  *     }      
  * )
- * @ApiFilter(SearchFilter::class, properties={"titre": "partial", "auteur.nom"})
+ * #[ApiFilter(SearchFilter::class, properties={"titre": "partial", "auteur.nom"})]
  */
 
 class Livre
