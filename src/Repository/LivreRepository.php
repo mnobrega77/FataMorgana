@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Livre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Livre|null find($id, $lockMode = null, $lockVersion = null)
@@ -48,15 +48,15 @@ class LivreRepository extends ServiceEntityRepository
     }
     
 
-    public function findAll()
-    {
-        $qb = $this->createQueryBuilder('livre')
-            ->addOrderBy('livre.titre', 'asc');
-        $query = $qb->getQuery();
-        
-        return $query->execute();
-
-    }
+//    public function findAll()
+//    {
+//        $qb = $this->createQueryBuilder('livre')
+//            ->addOrderBy('livre.titre', 'asc');
+//        $query = $qb->getQuery();
+//
+//        return $query->execute();
+//
+//    }
 
     
     public function findBooksByCategorie($id):array

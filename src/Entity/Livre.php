@@ -58,7 +58,7 @@ class Livre
      * @ORM\Column(name="lvr_ref", type="string", length=30, nullable=false)
      * @Assert\NotBlank
      * @Groups({"livre:read", "livre:item"})
-     * @ApiProperty(iri="http://schema.org/name")
+     * #[ApiProperty(iri:"http://schema.org/name")]
      */
     private $ref;
 
@@ -96,7 +96,7 @@ class Livre
      * @ORM\Column(name="lvr_titre", type="string", length=150, nullable=false)
      * @Assert\NotBlank
      * @Groups({"livre:read", "livre:item"})
-     * @ApiProperty(iri="http://schema.org/titre")
+     * #[ApiProperty(iri:"http://schema.org/titre")]
      */
     private $titre;
 
@@ -208,7 +208,7 @@ class Livre
      
      * @ORM\ManyToOne(targetEntity="App\Entity\Auteur", inversedBy="livres")
      * @ORM\JoinColumn(name="aut_id", referencedColumnName="aut_id", nullable=false)
-     *  @ApiProperty(iri="http://schema.org/auteur")
+     * #[ApiProperty(iri:"http://schema.org/auteur")]
      * @Groups({"livre:read", "livre:item"})
      */
     private $auteur;

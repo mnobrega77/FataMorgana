@@ -25,6 +25,7 @@ use App\Form\SousCategorieType;
 use App\Form\FournisseurType;
 
 
+
 class MainController extends AbstractController
 {
     
@@ -43,9 +44,7 @@ class MainController extends AbstractController
 
     //Page Catégorie
 
-    /**
-     * @Route("/categorie/{id}", name="categorie")
-     */
+    #[Route('/categorie/{id}', name: 'categorie')]
     public function showcat(SousCategorieRepository $repo, LivreRepository $repo1, Categorie $categorie)
     {
         $souscategorie = $repo->findByCategorie($categorie->getId());
