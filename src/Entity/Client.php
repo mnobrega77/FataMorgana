@@ -7,76 +7,49 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
- * @ORM\Table(name="client")
- */
+    #[ORM\Entity(repositoryClass:"App\Repository\ClientRepository")]
+    #[ORM\Table(name:"client")]
+
 class Client
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="cli_id", type="integer")
-     */
+        #[ORM\Id]
+        #[ORM\GeneratedValue]
+        #[ORM\Column(name:"cli_id", type:"integer", nullable:false)]
     private $id;
 
-    /**
-     * @ORM\Column(name="cli_nom", type="string", length=30)
-     * @Assert\Regex(
-     *      pattern = "/^[A-zÀ-ú\s,]+$/",
-     *      match=true)
-     */
+    #[ORM\Column(name:"cli_nom", type:"string", length:30)]
+    #[Assert\Regex(pattern: "/^[A-zÀ-ú\s,]+$/", match:true)]
     private $nom;
 
-    /**
-     * @ORM\Column(name="cli_prenom", type="string", length=30)
-     */
+    #[ORM\Column(name:"cli_prenom", type:"string", length:30)]
     private $prenom;
 
-    /**
-     * @ORM\Column(name="cli_ad", type="string", length=50)
-     */
+    #[ORM\Column(name:"cli_ad", type:"string", length:50)]
     private $adresse;
 
-    /**
-     * @ORM\Column(name="cli_cp", type="string", length=10)
-     */
+    #[ORM\Column(name:"cli_cp", type:"string", length:10)]
     private $cp;
 
-    /**
-     * @ORM\Column(name="cli_ville", type="string", length=20)
-     */
+    #[ORM\Column(name:"cli_ville", type:"string", length:20)]
     private $ville;
 
-    /**
-     * @ORM\Column(name="cli_tel", type="string", length=20)
-     */
+    #[ORM\Column(name:"cli_tel", type:"string", length:20)]
     private $tel;
 
-    /**
-     * @ORM\Column(name="cli_type", type="string", length=4, nullable=true)
-     */
+    #[ORM\Column(name:"cli_type", type:"string", length:4, nullable:true)]
     private $type;
 
-    /**
-     * @ORM\Column(name="cli_coeff", type="float", nullable=true)
-     */
+    #[ORM\Column(name:"cli_coeff", type:"float", nullable:true)]
     private $coeff;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="client", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
-     */
+    #[ORM\OneToOne(targetEntity:"App\Entity\User", inversedBy:"client", cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(name:"user_id", referencedColumnName:"id", nullable:false)]
     private $userId;
 
-    /**
-     * @ORM\Column(name="comm_ref", type="string", length=6, nullable=true)
-     */
+    #[ORM\Column(name:"comm_ref", type:"string", length:6, nullable:true)]
     private $commRef;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="cliId")
-     */
+    #[ORM\OneToMany(targetEntity:"App\Entity\Commande", mappedBy:"cliId")]
     private $commandes;
 
     public function __construct()

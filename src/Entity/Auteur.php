@@ -3,26 +3,23 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Repository\AuteurRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="auteur")
- * #[ApiResource()]
- */
+
+#[ORM\Entity(repositoryClass: AuteurRepository::class)]
+#[ApiResource]
 
 class Auteur
 {
-    /**
-     * @ORM\Column(name="aut_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Assert\NotBlank
-     */
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name:"aut_id", type:"integer", nullable:false)]
     private $id;
 
     public function getId(): ?int
@@ -33,23 +30,19 @@ class Auteur
     public function setId(int $id): self
     {
         $this->id = $id;
-        return $id;
+        return $this;
     }
-    /**
-     * @ORM\Column(name="aut_nom", type="string", length=50, nullable=false)
-     * @Assert\NotBlank
-     * @Groups({"livre:read", "livre:item"})
-     */
+
+    #[ORM\Column(name:"aut_nom", type:"string", length:50, nullable:false)]
+    #[Groups(groups: ['livre:read', "livre:item"])]
+
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="auteur", orphanRemoval=true)
-     * @Assert\NotBlank
-     * @Assert\Regex(
-     * pattern ="/\d/"),
-     * match=false,
-     * message="Le nom ne doit pas contenir des chiffres"
-     */
+
+    #[ORM\OneToMany(targetEntity:"App\Entity\Livre", mappedBy:"auteur", orphanRemoval:true)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern:"/\d/", match:false, message:"Le nom ne doit pas contenir des chiffres")]
+
     private $livres;
 
     public function __construct()

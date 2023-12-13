@@ -8,18 +8,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\CategorieRepository")
- * @ORM\Table(name="categorie")
- * #[ApiResource()]
- */
+    #[ORM\Entity(repositoryClass:"App\Repository\CategorieRepository")]
+    #[ORM\Table(name:"categorie")]
+    #[ApiResource]
 
 class Categorie
 {
-    /**
-     * @ORM\Column(name="cat_id", type="string", length=6, nullable=false, unique=true)
-     * @ORM\Id
-     */
+
+    #[ORM\Column(name:"cat_id", type:"string", length:6, nullable:false, unique:true)]
+    #[ORM\Id]
     private $id;
 
     public function getId(): ?string
@@ -30,17 +27,16 @@ class Categorie
     public function setId(string $id): self
     {
         $this->id = $id;
-        return $id;
+        return $this;
     }
-    /**
-     * @ORM\Column(name="cat_nom", type="string", length=50, nullable=false)
-     *@Groups({"livre:read", "livre:item"})
-     */
+
+    #[ORM\Column(name:"cat_nom", type:"string", length:50, nullable:false)]
+    #[Groups(["livre:read", "livre:item"])]
+
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SousCategorie", mappedBy="categorie", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity:"App\Entity\SousCategorie", mappedBy:"categorie", orphanRemoval:true)]
+
     private $sousCategories;
 
     public function __construct()
