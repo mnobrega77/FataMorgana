@@ -2,6 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
@@ -12,36 +18,40 @@ use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
 
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\LivreRepository")
- * @ORM\Table(name="livre")
- * #[ApiResource(iri="http://schema.org/Livre")],
- *      attributes={"security"},
- *      collectionOperations={
- *          "get"={"normalization_context"={"groups"="livre:read"}},
- *          "post"={"normalization_context"={"groups"="livre:read"}, "security"="is_granted('ROLE_ADMIN')", "security_message"="Only admins can add books."}
- * 
- *      },
- *      itemOperations={
- *          "get"={"normalization_context"={"groups"="livre:item"}},
- *          "put"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Only admins can update books."},
- *          "delete"={"security"="is_granted('ROLE_ADMIN')", "security_message"="Only admins can delete books."},
- *          "patch"={"normalization_context"={"groups"="livre:item"}}
- *      
- *     }      
- * )
- * #[ApiFilter(SearchFilter::class, properties={"titre": "partial", "auteur.nom"})]
- */
+#[ORM\Entity(repositoryClass:"App\Repository\LivreRepository")]
+#[ORM\Table(name:"livre")]
+#[ApiResource]
+#[Get(normalizationContext: ["groups" => ["livre:read"] ])]
+#[Post(
+    normalizationContext:["groups" => "livre:read"],
+    security:"is_granted('ROLE_ADMIN')",
+    securityMessage : "Only admins can add books."
+    )
+]
+#[GetCollection(normalizationContext: ["groups" => ["livre:item"]] )]
+#[Put(
+        security : "is_granted('ROLE_ADMIN')",
+        securityMessage : "Only admins can update books."
+    )
+]
+
+#[Delete(
+        security : "is_granted('ROLE_ADMIN')",
+        securityMessage : "Only admins can delete books."
+
+        )]
+#[Patch(normalizationContext : ["groups" =>  "livre:item"])]
+ #[ApiFilter(SearchFilter::class, properties:["titre" => "partial", "auteur.nom"])]
+
 
 class Livre
 {
    
-    /**
-     * @ORM\Column(name="lvr_id", type="string", length=10, nullable=false, unique=true)
-     * @ORM\Id
-     * @Assert\NotBlank
-     * @Groups({"livre:read", "livre:item"})
-     */
+   #[ORM\Column(name : "lvr_id", type:"string", length:10, nullable:false, unique:true)]
+   #[ORM\Id]
+   #[Assert\NotBlank]
+   #[Groups(["livre:read", "livre:item"]) ]
+
     private $id;
 
     public function getId(): ?string
@@ -54,12 +64,11 @@ class Livre
         $this->id = $id;
         return $this;
     }
-    /**
-     * @ORM\Column(name="lvr_ref", type="string", length=30, nullable=false)
-     * @Assert\NotBlank
-     * @Groups({"livre:read", "livre:item"})
-     * #[ApiProperty(iri:"http://schema.org/name")]
-     */
+   #[ORM\Column(name:"lvr_ref", type:"string", length:30, nullable:false)]
+   #[Assert\NotBlank]
+   #[Groups(["livre:read", "livre:item"]) ]
+   #[ApiProperty]
+
     private $ref;
 
     public function getRef(): ?string
@@ -73,10 +82,9 @@ class Livre
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="lvr_detail", type="string", length=200, nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"lvr_detail", type:"string", length:200, nullable:false)]
+    #[Groups(["livre:read", "livre:item"]) ]
+
     private $detail;
 
     public function getDetail(): ?string
@@ -90,14 +98,11 @@ class Livre
         return $this;
     }
 
-    /**
-     * @var string The Book's title.
-     * 
-     * @ORM\Column(name="lvr_titre", type="string", length=150, nullable=false)
-     * @Assert\NotBlank
-     * @Groups({"livre:read", "livre:item"})
-     * #[ApiProperty(iri:"http://schema.org/titre")]
-     */
+    #[ORM\Column(name:"lvr_titre", type:"string", length:150, nullable:false)]
+    #[Assert\NotBlank]
+    #[Groups(["livre:read", "livre:item"]) ]
+    #[ApiProperty]
+
     private $titre;
 
     public function getTitre(): ?string
@@ -111,10 +116,9 @@ class Livre
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="lvr_resume", type="text", nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"lvr_resume", type:"text", nullable:false)]
+    #[Groups(["livre:read", "livre:item"]) ]
+
     private $resume;
 
     public function getResume(): ?string 
@@ -127,11 +131,10 @@ class Livre
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="lvr_prachat", type="float", precision=10, scale=8, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Positive
-     */
+   #[ORM\Column(name:"lvr_prachat", type:"float", precision:10, scale:8, nullable:false) ]
+   #[Assert\NotBlank]
+   #[Assert\Positive]
+
     private $prachat;
 
     public function getPrachat(): ?float 
@@ -143,9 +146,7 @@ class Livre
         $this->prachat = $prachat;
         return $this;
     }
-    /**
-     * @Groups({"livre:read", "livre:item"})
-     */
+   #[Groups(["livre:read", "livre:item"]) ]
     private $prix;
 
     public function getPrix(): ?float
@@ -153,10 +154,8 @@ class Livre
         return $this->prachat*2;
     }
 
-    /**
-     * @ORM\Column(name="lvr_photo", type="string", length=200, nullable=true)
-    
-     */
+    #[ORM\Column(name:"lvr_photo", type:"string", length:200, nullable:true) ]
+
     private $image;
 
     public function getImage(): ?string 
@@ -170,12 +169,10 @@ class Livre
     }
 
     
-    /**
-     * @ORM\Column(name="lvr_stock", type="integer", nullable=false)
-     * @Assert\NotBlank
-     * @Assert\PositiveOrZero
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"lvr_stock", type:"integer", nullable:false) ]
+    #[Assert\NotBlank]
+    #[Assert\PositiveOrZero]
+    #[Groups(["livre:read", "livre:item"]) ]
     private $stock;
 
     public function getStock(): ?int 
@@ -188,45 +185,36 @@ class Livre
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="lvr_date_edition", type="date", nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"lvr_date_edition", type:"date", nullable:false) ]
+    #[Groups(["livre:read", "livre:item"]) ]
+
     private $dateEdition;
 
     
-    /**
-     * @var \SousCategorie
-     
-     * @ORM\ManyToOne(targetEntity="App\Entity\SousCategorie", inversedBy="livres")
-     * @ORM\JoinColumn(name="scat_id", referencedColumnName="scat_id", nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     */
+
+     #[ORM\ManyToOne(targetEntity:"App\Entity\SousCategorie", inversedBy:"livres") ]
+     #[ORM\JoinColumn(name:"scat_id", referencedColumnName:"scat_id", nullable:false) ]
+     #[Groups(["livre:read", "livre:item"]) ]
+
     private $souscategorie;
 
-    /**
-     
-     * @ORM\ManyToOne(targetEntity="App\Entity\Auteur", inversedBy="livres")
-     * @ORM\JoinColumn(name="aut_id", referencedColumnName="aut_id", nullable=false)
-     * #[ApiProperty(iri:"http://schema.org/auteur")]
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Auteur", inversedBy:"livres")]
+    #[ORM\JoinColumn(name:"aut_id", referencedColumnName:"aut_id", nullable:false)]
+    #[ApiProperty]
+    #[Groups(["livre:read", "livre:item"]) ]
+
     private $auteur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Editeur", inversedBy="livres", fetch="EAGER")
-     * @ORM\JoinColumn(name="edit_id", referencedColumnName="edit_id", nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     * 
-     */
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Editeur", inversedBy:"livres", fetch:"EAGER")]
+    #[ORM\JoinColumn(name:"edit_id", referencedColumnName:"edit_id", nullable:false)]
+    #[Groups(["livre:read", "livre:item"])]
+
     private $editeur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Fournisseur", inversedBy="livres", fetch="EAGER")
-     * @ORM\JoinColumn(name="four_id", referencedColumnName="four_id", nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     *
-     */
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Fournisseur", inversedBy:"livres", fetch:"EAGER") ]
+    #[ORM\JoinColumn(name:"four_id", referencedColumnName:"four_id", nullable:false)]
+    #[Groups(["livre:read", "livre:item"]) ]
+
     private $fournisseur;
 
     

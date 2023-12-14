@@ -6,38 +6,31 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- */
+#[ORM\Entity(repositoryClass:"App\Repository\UserRepository")]
+
 class User implements UserInterface
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="id", type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name:"id", type:"integer")]
+
     private $id;
 
-    /**
-     * @ORM\Column(name="email", type="string", length=180, unique=true)
-     */
+    #[ORM\Column(name:"email", type:"string", length:180, unique:true)]
+
     private $email;
 
-    /**
-     * @ORM\Column(name="roles", type="json")
-     */
+    #[ORM\Column(name:"roles", type:"json")]
+
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Votre mot de passe doit comporter minimum 8 caractères")
-     */
+    #[ORM\Column(name:"password", type:"string", length:255)]
+    #[Assert\Length(min:"8", minMessage:"Votre mot de passe doit comporter minimum 8 caractères")]
+
     private $password;
 
-    /**
-     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne sont pas identiques")
-     */
+    #[Assert\EqualTo(propertyPath:"password", message:"Les mots de passe ne sont pas identiques")]
+
     private $confirmPassword;
 
     public function getConfirmPassword(): string
@@ -52,14 +45,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="username", type="string", length=60)
-     */
+    #[ORM\Column(name:"username", type:"string", length:60)]
+
     private $username;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="userId", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: "App\Entity\Client", mappedBy: "userId", cascade:["persist", "remove"]) ]
+
     private $client;
 
     public function getId(): ?int

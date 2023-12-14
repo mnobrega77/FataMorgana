@@ -4,39 +4,32 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ContientRepository")
- * @ORM\Table(name="contient")
- */
+    #[ORM\Entity(repositoryClass:"App\Repository\ContientRepository")]
+    #[ORM\Table(name:"contient")]
+
 class Contient
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     *  @ORM\Column(name = "id", type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name:"id", type:"integer")]
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Livre")
-     * @ORM\JoinColumn(name="lvr_id", referencedColumnName="lvr_id", nullable=false)
-     */
-    private $lvrId;
+   #[ORM\ManyToOne(targetEntity:"App\Entity\Livre")]
+   #[ORM\JoinColumn(name:"lvr_id", referencedColumnName:"lvr_id", nullable:false)]
 
-    /**
-     * @ORM\Column(name = "lvr_prunitHT", type="float")
-     */
+   private $lvrId;
+
+   #[ORM\Column(name: "lvr_prunitHT", type:"float")]
+
     private $lvrPrunitHT;
 
-    /**
-     * @ORM\Column(name = "cmmd_qte", type="integer")
-     */
+  #[ORM\Column(name: "cmmd_qte", type: "integer")]
+
     private $cmmdQte;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="contients")
-     * @ORM\JoinColumn(name = "cmmd_id", referencedColumnName="cmmd_id", nullable=false)
-     */
+  #[ORM\ManyToOne(targetEntity:"App\Entity\Commande", inversedBy:"contients")]
+  #[ORM\JoinColumn(name:"cmmd_id", referencedColumnName:"cmmd_id", nullable:false)]
+
     private $cmmdId;
 
     public function getId(): ?int

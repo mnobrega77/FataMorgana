@@ -9,19 +9,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="editeur")
- * #[ApiResource()]
- */
+    #[ORM\Entity]
+    #[ORM\Table(name:"editeur")]
+    #[ApiResource]
 
 class Editeur
 {
-    /**
-     * @ORM\Column(name="edit_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+   #[ORM\Column(name:"edit_id", type:"integer", nullable:false)]
+   #[ORM\Id]
+   #[ORM\GeneratedValue(strategy:"IDENTITY")]
+
     private $id;
 
     public function getId(): ?int
@@ -32,22 +29,20 @@ class Editeur
     public function setId(int $id): self
     {
         $this->id = $id;
-        return $id;
+        return $this;
     }
-    /**
-     * @ORM\Column(name="edit_nom", type="string", length=50, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Regex(
-     * pattern ="/\d/"),
-     * match=false,
-     * message="Le nom ne doit pas contenir des chiffres"
-     * @Groups({"livre:read", "livre:item"})
-     */
+  #[ORM\Column(name:"edit_nom", type:"string", length:50, nullable:false)]
+  #[Assert\NotBlank]
+  #[Assert\Regex(
+     pattern: "/\d/",
+     match:false,
+     message:"Le nom ne doit pas contenir des chiffres")]
+  #[Groups(["livre:read", "livre:item"])]
+
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="editeur")
-     */
+   #[ORM\OneToMany(targetEntity:"App\Entity\Livre", mappedBy:"editeur")]
+
     private $livres;
 
     public function __construct()

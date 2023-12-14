@@ -11,20 +11,18 @@ use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="fournisseur")
- * #[ApiResource()]
- */
+#[ORM\Entity]
+#[ORM\Table(name:"fournisseur")]
+#[ApiResource]
+
 
 class Fournisseur
 {
-    /**
-     * @ORM\Column(name="four_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"four_id", type:"integer", nullable:false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy:"IDENTITY")]
+    #[Groups(["livre:read", "livre:item"])]
+
     private $id;
 
     public function getId(): ?int
@@ -37,11 +35,10 @@ class Fournisseur
         $this->id = $id;
         return $id;
     }
-    /**
-     * @ORM\Column(name="four_nom", type="string", length=50, nullable=false)
-     * @Assert\NotBlank
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"four_nom", type:"string", length:50, nullable:false)]
+    #[Assert\NotBlank]
+    #[Groups(["livre:read", "livre:item"])]
+
     private $nom;
 
     public function getNom(): ?string
@@ -55,10 +52,9 @@ class Fournisseur
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="four_ad", type="string", length=50, nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(name:"four_ad", type:"string", length:50, nullable:false)]
+    #[Assert\NotBlank]
+
     private $adresse;
 
     public function getAdresse(): ?string
@@ -71,10 +67,9 @@ class Fournisseur
         $this->adresse = $adresse;
         return $this;
     }
-    /**
-     * @ORM\Column(name="four_contact", type="string", length=50, nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(name:"four_contact", type:"string", length:50, nullable:false)]
+    #[Assert\NotBlank]
+
     private $contact;
 
     public function getContact(): ?string
@@ -87,10 +82,9 @@ class Fournisseur
         $this->contact = $contact;
         return $this;
     }
-    /**
-     * @ORM\Column(name="four_cp", type="string", length=15, nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(name:"four_cp", type:"string", length:15, nullable:false)]
+    #[Assert\NotBlank]
+
     private $code;
 
     public function getCode(): ?string
@@ -104,10 +98,9 @@ class Fournisseur
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="four_ville", type="string", length=30, nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(name:"four_ville", type:"string", length:30, nullable:false)]
+    #[Assert\NotBlank]
+
     private $ville;
 
     public function getVille(): ?string
@@ -121,12 +114,11 @@ class Fournisseur
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="four_tel", type="string", length=20, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Length(min = 8, max = 20, minMessage = "Votre numéro est trop court", maxMessage = "Le numéro dépasse la longueur admise")
-     * @Assert\Regex("/[0-9]*$/")
-     */
+    #[ORM\Column(name:"four_tel", type:"string", length:20, nullable:false)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8, max: 20, minMessage: "Votre numéro est trop court", maxMessage : "Le numéro dépasse la longueur admise")]
+    #[Assert\Regex("/[0-9]*$/")]
+
     private $phone;
 
     public function getPhone(): ?string
@@ -140,10 +132,9 @@ class Fournisseur
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="four_pays", type="string", length=30, nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(name:"four_pays", type:"string", length:30, nullable:false)]
+    #[Assert\NotBlank]
+
     private $pays;
 
     public function getPays(): ?string
@@ -157,13 +148,12 @@ class Fournisseur
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="four_email", type="string", length=30, nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Email(
-     *     message = "L'adresse email '{{ value }}' n'est pas valide."
-     * )
-     */
+    #[ORM\Column(name:"four_email", type:"string", length:30, nullable:false)]
+    #[Assert\NotBlank]
+    #[Assert\Email(
+          message : "L'adresse email '{{ value }}' n'est pas valide."
+     )]
+
     private $email;
 
     public function getEmail(): ?string
@@ -177,15 +167,13 @@ class Fournisseur
         return $this;
     }
 
-    /**
-     * @ORM\Column(name="four_type", type="string", length=6, nullable=false)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(name:"four_type", type:"string", length:6, nullable:false)]
+    #[Assert\NotBlank]
+
     private $type;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="fournisseur")
-     */
+    #[ORM\OneToMany(targetEntity:"App\Entity\Livre", mappedBy:"fournisseur")]
+
     private $livres;
 
     public function __construct()

@@ -8,18 +8,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\SousCategorieRepository"))
- * @ORM\Table(name="souscategorie")
- * #[ApiResource()]
- */
+#[ORM\Entity(repositoryClass:"App\Repository\SousCategorieRepository") ]
+#[ORM\Table(name:"souscategorie") ]
+#[ApiResource]
+
 
 class SousCategorie
 {
-    /**
-     * @ORM\Column(name="scat_id", type="string", length=6, nullable=false, unique=true)
-     * @ORM\Id()
-     */
+    #[ORM\Column(name:"scat_id", type:"string", length:6, nullable:false, unique:true)]
+    #[ORM\Id]
+
     private $id;
 
     public function getId(): ?string
@@ -32,24 +30,18 @@ class SousCategorie
         $this->id = $id;
         return $id;
     }
-    /**
-     * @ORM\Column(name="scat_nom", type="string", length=50, nullable=false)
-     * @Groups({"livre:read", "livre:item"})
-     */
+    #[ORM\Column(name:"scat_nom", type:"string", length:50, nullable:false) ]
+    #[Groups(["livre:read", "livre:item"]) ]
+
     private $nom;
 
-    /**
-     * @var \Categorie
-     * 
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="sousCategories")
-     * @ORM\JoinColumn(name="cat_id", referencedColumnName="cat_id", nullable=false)
-     * 
-     */
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Categorie", inversedBy:"sousCategories")]
+    #[ORM\JoinColumn(name:"cat_id", referencedColumnName:"cat_id", nullable:false) ]
+
     private $categorie;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="souscategorie")
-     */
+    #[ORM\OneToMany(targetEntity:"App\Entity\Livre", mappedBy:"souscategorie")]
+
     private $livres;
 
     public function __construct()
