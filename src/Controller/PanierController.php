@@ -43,26 +43,37 @@ class PanierController extends AbstractController
         $session = $this->requestStack->getSession();
         $panier = $session->get("panier", []);
 
-
+//        dd($panier);
 
         $livres = $this->lvRepo->findById(array_keys($panier));
         $prixTotal = 0;
         $total = 0;
 
         foreach($livres as $item) {
-            $prixTotal = $item->getPrix() + $item->getPrix()*$panier[$item->getId()];
+            $prix = $item->getPrix();
+//            dd($prix);
+            $prixTotal = $prix + $prix*$panier[$item->getId()];
 
-            if ($this->getUser() && $this->getUser()->getClient()) {
-                
-                $item->prixapayer = ( $item->getPrix() / 2) *  $this->getUser()->getClient()->getCoeff();
+            if ($this->getUser()){
+                $usermail = $this->getUser()->getUserIdentifier();
+                $realUser = $this->uRepo->findOneBy(["email"=>$usermail]);
+                if($realUser->getClient()){
+//                    dd($realUser->getClient()->getCoeff());
+                    $item->prixapayer = ( $prix / 2) *  $realUser->getClient()->getCoeff();
+//                    dd($item->prixapayer);
+                }
+                else{
+                    $item->prixapayer = $prix ;
+                }
             }
             else {
-                $item->prixapayer = $item->getPrix() ; 
+                $item->prixapayer = $prix ;
+                dd($item->prixapayer);
             }
             $total += $item->prixapayer*$panier[$item->getId()];
         }
 
-         dd($livres);
+//         dd($livres);
         // dump($panier);
 
         return $this->render('panier/index.html.twig', [
@@ -76,7 +87,7 @@ class PanierController extends AbstractController
 
     public function add(Request $request, SessionInterface $session, Livre $item)
     {
-        $panier = $session->get("panier", []);     
+        $panier = $session->get("panier", []);
 
         if ( $item == NULL ||  $item->getStock()==0) {
             
@@ -93,9 +104,11 @@ class PanierController extends AbstractController
             {
                 $panier[$item->getId()]++;
             }
+//            dd($item->getPrix());
        }
        
         $session->set("panier", $panier);
+//        dd($session);
 
         //redirect to last route
         $referer = $request->headers->get('referer'); 
