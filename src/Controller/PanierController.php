@@ -203,7 +203,7 @@ class PanierController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
-        dump($panier);
+//        dump($panier);
 
         if($form->isSubmitted() && $form->isValid()) {
             

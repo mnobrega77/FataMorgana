@@ -18,18 +18,18 @@ class Facture
 
     private $date;
 
-    #[ORM\Column(name :"fact_totalHT", type:"float")]
+    #[ORM\Column(name :"fact_totalHT", type:"float", nullable:true)]
 
     private $totalHT;
 
-    #[ORM\Column(name :"fact_tva", type:"float")]
+    #[ORM\Column(name :"fact_tva", type:"float", nullable:true)]
 
     private $tva;
 
     #[ORM\Column(name :"fact_reduc", type:"float", nullable:true)]
     private $reduc;
 
-    #[ORM\Column(name :"fact_totalTTC", type:"float")]
+    #[ORM\Column(name :"fact_totalTTC", type:"float", nullable:true)]
 
     private $totalTTC;
 
