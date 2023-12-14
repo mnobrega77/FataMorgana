@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass:"App\Repository\UserRepository")]
 
-class User implements UserInterface
+class User implements UserInterface, \Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -75,9 +75,14 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     /**
@@ -156,9 +161,4 @@ class User implements UserInterface
         
     }
 
-
-    public function getUserIdentifier(): string
-    {
-        // TODO: Implement getUserIdentifier() method.
-    }
 }

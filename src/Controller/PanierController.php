@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Facture;
 use App\Entity\Livre;
 use App\Entity\Commande;
 use App\Entity\Contient;
 use App\Form\CommandeType;
+use App\Repository\LivreRepository;
+use App\Repository\UserRepository;
+use App\Service\PanierService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,20 +17,35 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class PanierController extends AbstractController
 {
-    /**
-     * @Route("/panier/", name="panier_liste")
-     */
-    public function liste(SessionInterface $session)
+
+    private $ps;
+    private $uRepo;
+    private $em;
+    private $requestStack;
+    private $lvRepo;
+    public function __construct(PanierService $ps, UserRepository $uRepo, EntityManagerInterface $em, RequestStack $requestStack, LivreRepository $lvRepo){
+        $this->ps=$ps;
+        $this->uRepo = $uRepo;
+        $this->em=$em;
+        $this->requestStack = $requestStack;
+        $this->lvRepo = $lvRepo;
+    }
+
+    #[Route("/panier/", name:"panier_liste")]
+
+    public function liste()
     {
-        $repo = $this->getDoctrine()->getRepository(Livre::class);
+
+        $session = $this->requestStack->getSession();
         $panier = $session->get("panier", []);
 
-        
 
-        $livres = $repo->findById(array_keys($panier));
+
+        $livres = $this->lvRepo->findById(array_keys($panier));
         $prixTotal = 0;
         $total = 0;
 
@@ -43,7 +62,7 @@ class PanierController extends AbstractController
             $total += $item->prixapayer*$panier[$item->getId()];
         }
 
-        // dump($livres);
+         dd($livres);
         // dump($panier);
 
         return $this->render('panier/index.html.twig', [
@@ -53,9 +72,8 @@ class PanierController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/panier_add/{id}", name="panier_add")
-     */
+    #[Route("/panier_add/{id}", name:"panier_add")]
+
     public function add(Request $request, SessionInterface $session, Livre $item)
     {
         $panier = $session->get("panier", []);     
@@ -142,13 +160,12 @@ class PanierController extends AbstractController
 
     public function commande(Request $request, EntityManagerInterface $em, SessionInterface $session)
     {
-        $repo = $this->getDoctrine()->getRepository(Livre::class);
         $commande = new Commande();
         $client = $this->getUser()->getClient();
         // dump($client);
         
         $panier = $session->get("panier", []);
-        $livres = $repo->findById(array_keys($panier));
+        $livres = $this->lvRepo->findById(array_keys($panier));
         $prixTotal = 0;
         $total = 0;
 
@@ -158,6 +175,7 @@ class PanierController extends AbstractController
             $total += $item->prixapayer*$panier[$item->getId()];
             
         }
+
 
         $commande->setCliId($client);
         $commande->setDate(new \DateTime());
@@ -181,7 +199,7 @@ class PanierController extends AbstractController
 
             foreach ($panier as $id_livre => $qte_livre) {
                 $contient = new Contient();
-                $livre = $repo->find($id_livre);
+                $livre = $this->lvRepo->find($id_livre);
                 $contient->setCmmdId($commande);
                 $contient->setLvrId($livre);
                 $contient->setCmmdQte($qte_livre);
@@ -190,6 +208,12 @@ class PanierController extends AbstractController
                 $em->persist($contient);
                 $em->flush();
             }
+            $fc = new Facture();
+            $fc->setCommande($commande);
+            $fc->setDate(new \DateTime());
+            $fc->setTotalHT($prixTotal);
+            //+tva + reduc = totalTTC
+            $this->em->persist($fc);
 
                 
         $em->flush();

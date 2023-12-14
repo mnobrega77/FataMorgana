@@ -33,6 +33,26 @@ class Facture
 
     private $totalTTC;
 
+    #[ORM\OneToOne(targetEntity:"App\Entity\Commande",inversedBy: "factId")]
+    #[ORM\JoinColumn(name:"cmmd_id", referencedColumnName:"cmmd_id", nullable:false)]
+    private $commande;
+
+    /**
+     * @return mixed
+     */
+    public function getCommande()
+    {
+        return $this->commande;
+    }
+
+    /**
+     * @param mixed $commande
+     */
+    public function setCommande($commande): void
+    {
+        $this->commande = $commande;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

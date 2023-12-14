@@ -47,8 +47,7 @@ class Commande
     #[ORM\OneToMany(targetEntity:"App\Entity\Contient", mappedBy:"cmmdId", orphanRemoval:true)]
     private $contients;
 
-   #[ORM\OneToOne(targetEntity:"App\Entity\Facture", cascade:["persist", "remove"])]
-    #[ORM\JoinColumn(name:"fact_id", referencedColumnName:"fact_id", nullable:false)]
+   #[ORM\OneToOne(targetEntity:"App\Entity\Facture", mappedBy: "commande")]
     private $factId;
 
     public function __construct()
