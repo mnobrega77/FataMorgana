@@ -1,5 +1,6 @@
 # FataMorgana
 
+
 ## Présentation
 
 FataMorgana est un projet de formation. Il s'agit d'une application web de e-commerce (vente de livres) accessible aux professionnels et aux particuliers. 
