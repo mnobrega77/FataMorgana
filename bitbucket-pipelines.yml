@@ -1,18 +1,31 @@
-image: atlassian/default-image:4
+# Template PHP Build
+
+# This template allows you to validate your PHP application.
+# The workflow allows running tests and code linting on the default branch.
+
+image: composer:2.0
+
 
 pipelines:
-  branches:
-    master:
-      - step:
-          name: Qodana
-          caches:
-            - qodana
-          image: jetbrains/qodana-php
-          script:
-            - export QODANA_TOKEN=$QODANA_TOKEN  # Export the environment variable
-            - qodana --results-dir=$BITBUCKET_CLONE_DIR/.qodana --report-dir=$BITBUCKET_CLONE_DIR/.qodana/report --cache-dir=$BITBUCKET_CLONE_DIR/.qodana/cache
-          artifacts:
-            - .qodana/report
-definitions:
-  caches:
-    qodana: .qodana/cache
+  default:
+    - parallel:
+        - step:
+            name: Test
+            script:
+              - composer install
+              -  ./vendor/bin/phpunit test
+            caches:
+              - composer
+        - step:
+            name: Lint
+            script:
+              - composer install
+              - ./vendor/bin/phplint . --exclude=vendor
+            caches:
+              - composer
+        - step:
+            name: Deploy to test
+            deployment: test
+            # trigger: manual  # Uncomment to make this a manual deployment.
+            script:
+              - echo "Deploying to test environment"      
