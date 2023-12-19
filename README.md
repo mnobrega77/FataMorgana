@@ -12,3 +12,4 @@ FataMorgana est un projet de formation. Il s'agit d'une application web de e-com
   * Doctrine
   * HTML5
   * CSS3
+
