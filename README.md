@@ -7,8 +7,8 @@ FataMorgana est un projet de formation en cours de développement. Il s'agit d'u
 
 ## Technologies et langages de développement 
 
-  * Symfony 4.1 
-  * PHP 7.4.0
+  * Symfony 6.3 
+  * PHP 8.2
   * MySQL
   * Doctrine
   * HTML5
