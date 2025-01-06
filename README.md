@@ -1,10 +1,10 @@
 # FataMorgana
 
-## Présentation
+## Summary
 
-FataMorgana est un projet de formation. Il s'agit d'une application web de e-commerce (vente de livres) accessible aux professionnels et aux particuliers. 
+FataMorgana is a training project I developed to enhance my skills. It is an e-commerce web application that sells books, accessible to both professionals and individuals. 
 
-## Technologies et langages de développement 
+## Languages
 
   * Symfony 6.3 
   * PHP 8.2
